@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="star.png" href="https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTEwL3JtNDY3YmF0Y2gyLXN0YXItMDAxXzEucG5n.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <title>Melona restaurant</title>
+<style>
+body{
+    background-color: #F8D0D0;
+}
+  /* navbar section */
+.navbar {
+    background-color: #e6b798 !important;
+    color: black !important;
+}
+.navbar-brand{
+    font-size: 25px !important;
+}
+.nav-item{
+    font-size: 18px !important;
+}
+/* footer section */
+.footer {
+    /* height: 400px; */
+    width: 100% !important;
+    font-size: 14px;
+    background-color: #1e1e23;
+    padding: 50px 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+.footer h4 {
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 5px;
+    color: white;
+}
+.footer .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 10px;
+}
+</style>
+</head>
+<body>
+{% include 'navbar.html' %}
+<br><br>
+<div class="container mt-4">
+    <h2>Submit a Question</h2>
+    <form action="/add_question" method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="email" class="form-control" id="mail" name="mail" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="question">Question</label>
+            <textarea class="form-control" id="question" name="question" rows="3" placeholder="Enter your question" required></textarea>
+        </div>
+        <br>
+        <center><button type="submit" class="btn btn-outline-info">Submit</button></center>
+    </form>
+</div>
+
+<div class="container mt-4">
+    <h3>Submitted Questions</h3>
+    <div class="accordion" id="faqAccordion">
+        {% for question in questions %}
+            <div class="card">
+                <div class="card-header" id="heading{{ loop.index }}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                            <strong>{{ question['name'] }}</strong> - {{ question['question'] }}
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        <p><strong>Email:</strong> {{ question['mail'] }}</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>No questions submitted yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% include 'footer.html' %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
